@@ -25,5 +25,5 @@
   "interchange": "json",
   "connectivity": "offline",
   "testing": "standard",
-  "notes": ""
+  "notes": "Single .milk presets only. Managed copies and original bytes, plain text playlists, recoverable drafts, dockable code/preview/effect workspace. projectM compiled from sibling source to WebAssembly/WebGL2."
 }

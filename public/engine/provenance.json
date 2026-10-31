@@ -1,0 +1,9 @@
+{
+  "engine": "projectM",
+  "version": "4.2.0",
+  "source": "https://github.com/projectM-visualizer/projectm",
+  "revision": "2f244141320f6b97b09bf99964cc72a4efdfcfd3",
+  "webgl": 2,
+  "build": "npm run build:projectm",
+  "license": "LGPL-2.1-or-later"
+}

@@ -2,9 +2,9 @@
 
 ## Policy
 
-The root `package.json` version is the source of truth. Version tooling also updates package-lock files, nested package files, `VERSION`, `version.txt`, and common Inno Setup version fields when those files exist.
+The root `package.json` version is the source of truth. `version-files.js` explicitly lists all first-party version locations: root package.json, package-lock.json (including packages[""]), VERSION, and installer/milkLab.iss (`MyAppVersion`). Electron metadata and the packaged package.json derive from the root version during packaging.
 
-After the application stack is chosen, inspect the codebase for stack-specific version locations and update `tools/project-mgmt/version-sync.js`, `version-show.js`, and package scripts accordingly. Examples include installer definitions, desktop app metadata, browser extension manifests, mobile app manifests, Docker labels, generated web assets, and per-package workspace versions.
+No recursive version walking is performed. Dependencies, native source archives, public engine provenance and vendor code keep their own versions. Vitest runs patch/minor/major bumps in disposable copies and verifies consistency and third-party isolation. Rebuild dist after a real version bump. `version:show` exits nonzero on missing/mismatched first-party locations.
 
 ## Commands
 

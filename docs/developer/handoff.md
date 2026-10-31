@@ -1,18 +1,20 @@
 # Handoff Guide
 
-## Purpose
-
-Document the project-specific process here.
+Preserve the current plan, validation and remaining release work for the next session.
 
 ## Prerequisites
 
-- Node.js and npm for project-management scripts.
-- Git for source control.
+- Read root AGENTS.md and the required startup documents.
+- Resume from `docs/handoffs/HANDOFF.md`, then inspect actual Git status before editing.
 
 ## Commands
 
-Add concrete commands once the implementation stack is selected.
+```powershell
+npm run todo
+npm run ledger:list
+npm run handoff -- "Describe the implementation state, checks and next action"
+```
 
 ## Notes
 
-Keep developer-facing details here rather than overloading the public README.
+`handoff` updates the durable handoff and creates an ignored timestamped snapshot. Keep runtime data, secrets and temporary QA artifacts out of it. Before ending a complex session, reconcile source, package scripts, manifest, foundation, version targets and docs, record validation in the ledger, then generate the handoff. Final reports state changed surfaces, checks, dist rebuild status, schema/migration changes, and any remaining deployment action.

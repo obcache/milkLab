@@ -17,7 +17,7 @@ functionality. Scaffolding these decisions does not implement an application or 
 - theme: VS Code-inspired dark
 - density: Dense information workspace
 - layout: Resizable workspace with collapsible panels
-- primarySurface: Choose from application functionality
+- primarySurface: Tabbed preset code editor, docked library, playlists, projectM preview and effect recipes
 - overlays: Click-open drawers and dialogs
 - chrome: Custom themed titlebar and window controls
 - scrollbars: Themed scrollbars and form controls
@@ -43,13 +43,9 @@ functionality. Scaffolding these decisions does not implement an application or 
 
 - testing: Unit + integration + key workflow smoke tests
 
-## Administrator Bootstrap
+## Local User Model
 
-- Initial admin username / identity: Not applicable
-- Credentials: No bootstrap password is stored.
-- Application-managed passwords must be hashed and bootstrap enrollment disabled
-  after first use. Require rotation of a supplied bootstrap password.
-- External identity uses an allowlisted subject/group; do not grant admin to arbitrary SSO users.
+One local user, no login, administrator bootstrap, roles, credentials, or remote service.
 
 ## Delivery And Data Boundaries
 
@@ -63,18 +59,21 @@ are foundation preferences; feature-specific behavior comes from the user reques
 
 ## Additional User Constraints
 
-None recorded.
+- Single `.milk` presets only; no `.milk2` dual-preset support.
+- Panel ordering, left/right placement, height, width, and collapse state persist.
+- Unsaved tabs use temporary `.milk` recovery files outside the installed application.
+- Imported originals remain byte-exact; managed working copies are normalized with an audit report.
+- Unknown/unsafe rewrites and q variables above q32 require review.
+- Playlists are path-only plain text files in a `playlists` subfolder.
+- projectM is compiled from `E:/Production/Coding/projectm` (portable default: `../projectm`) into replaceable WebAssembly/JavaScript assets with WebGL2 only.
+- Vector effect thumbnails illustrate style and insert actual EEL equations.
+- Default managed root: Electron's Documents folder plus `milkLab`; configurable in File → Settings. Settings/recovery use Electron's per-user application-data folder.
+- JSON records and workspace exports use schema version 1; unsupported versions/corrupt records are preserved and rejected.
+- Settings/recovery always use a dedicated milkLab userData folder, including development launches: `%APPDATA%/milkLab` on Windows, with an explicit `MILKLAB_USER_DATA` override. The shared Electron folder is not read or migrated.
 
 ## Implementation Handoff
 
-1. Read AGENTS.md and the startup documents before designing application behavior.
-2. Implement the user's functional request within this foundation.
-3. Replace failing build/test/package placeholders with real stack commands.
-4. Once the source layout is settled, review package.json, manifest.json, foundation,
-   planning and all docs; reconcile paths, dependencies and runtime assumptions.
-5. Adapt version-sync.js/version-show.js to the real stack-specific version files,
-   excluding third-party modules and libraries. Test patch/minor/major behavior.
-6. Record assumptions and validation; update the handoff before context is exhausted.
+The application, build and packaging commands are implemented. See `docs/developer/architecture.md`, build/testing/deployment guides, the active plan and the ledger for evidence and remaining release work. First-party version locations are explicitly listed in `tools/project-mgmt/version-files.js`; third-party engine versions are excluded.
 
 ## Decision Sources
 

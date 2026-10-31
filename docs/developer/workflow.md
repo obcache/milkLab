@@ -45,14 +45,9 @@ state changed files, checks, artifact rebuild status, migration changes and any
 deployment action still needed. These records must permit a new session to resume
 without a full conversation transcript.
 
-## Initial Administrator
+## Local Desktop Model
 
-Reponator records an account policy; it does not implement the application's login.
-Build first-run enrollment or an environment-driven bootstrap flow using an
-established authentication library. A supplied/generated password is local-only
-in ignored .env.local as ADMIN_BOOTSTRAP_PASSWORD_B64 (UTF-8 encoded as base64).
-Decode once for enrollment, hash using the selected auth library, require rotation
-on first sign-in, disable the bootstrap path after enrollment, and remove the local
-bootstrap secret when consumed. Base64 is an encoding, not encryption. Never copy
-it into docs, source, assets, client bundles or production defaults. SSO admin
-assignment uses an explicit identity-provider subject/group allowlist.
+milkLab has no login or administrator bootstrap. Keep managed presets and mutable
+state outside installed artifacts. Verify the sandboxed renderer/preload/main
+boundary when adding file operations. See architecture.md for the storage layout
+and schema-v1 recovery/compatibility behavior.

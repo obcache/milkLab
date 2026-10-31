@@ -34,11 +34,11 @@
     "interchange": "json",
     "connectivity": "offline",
     "testing": "standard",
-    "notes": ""
+    "notes": "Single .milk presets only. Managed copies and original bytes, plain text playlists, recoverable drafts, dockable code/preview/effect workspace. projectM compiled from sibling source to WebAssembly/WebGL2."
   },
   "foundationPath": "docs/PROJECT_FOUNDATION.md",
   "artifactBoundary": "dist/",
-  "migrationPolicy": "Explicit, versioned and validated when persistence is implemented.",
+  "migrationPolicy": "JSON schema v1; reject unknown versions and preserve corrupt files. No relational migrations.",
   "layout": {
     "docs": [
       "AGENTS.md",
@@ -56,7 +56,8 @@
       "docs/PROJECT_FOUNDATION.md",
       "docs/user/UserGuide.md",
       "README.md",
-      "tools/project-mgmt/README.md"
+      "tools/project-mgmt/README.md",
+      "docs/developer/architecture.md"
     ],
     "tools": [
       "tools/project-mgmt/commit-release.js",
@@ -68,7 +69,8 @@
       "tools/project-mgmt/todo.js",
       "tools/project-mgmt/version-bump.js",
       "tools/project-mgmt/version-show.js",
-      "tools/project-mgmt/version-sync.js"
+      "tools/project-mgmt/version-sync.js",
+      "tools/project-mgmt/version-files.js"
     ]
   },
   "files": [
@@ -197,5 +199,38 @@
       "sha256": "e9dd8507f4bf0c6f42458e41aea833ad0bd3f6127272335eee9bf4d58541ed67"
     }
   ],
-  "integrityScope": "Creation-time seed hashes; excludes this manifest, local secrets and later edits."
+  "integrityScope": "Creation-time seed hashes; excludes this manifest, local secrets and later edits.",
+  "implementation": {
+    "entryPoints": [
+      "electron/main.ts",
+      "electron/preload.ts",
+      "src/main.tsx"
+    ],
+    "rendererBuild": "build/renderer",
+    "electronBuild": "build/electron",
+    "portableArtifact": "dist/win-unpacked",
+    "installer": "dist/installer/milkLab-<version>-setup.exe",
+    "engine": "public/engine/milklab-projectm.mjs + .wasm",
+    "sourceEngine": "../projectm",
+    "storage": "Documents/milkLab (configurable); appData/milkLab for settings and recovery, MILKLAB_USER_DATA override; userData/chromium for session data",
+    "schemas": {
+      "settings": 1,
+      "workspace": 1,
+      "library": 1
+    },
+    "versionFiles": [
+      "package.json",
+      "package-lock.json",
+      "VERSION",
+      "installer/milkLab.iss"
+    ],
+    "tests": [
+      "npm test",
+      "npm run test:startup",
+      "npm run test:dev",
+      "npm run test:desktop",
+      "npm run test:packaged"
+    ],
+    "deployCheck": "npm run deploy:check"
+  }
 }
